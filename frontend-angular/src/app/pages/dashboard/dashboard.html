@@ -1,0 +1,155 @@
+<div class="min-h-screen bg-slate-900 text-white p-8">
+
+  <div class="flex items-center justify-between mb-10">
+
+    <div>
+      <h1 class="text-5xl font-bold">
+        SmartShop Dashboard
+      </h1>
+
+      <p class="text-slate-400 mt-2">
+        Kafka Event Driven Ecommerce
+      </p>
+    </div>
+
+    <div class="bg-green-500 text-black px-5 py-3 rounded-2xl font-bold">
+      LIVE
+    </div>
+
+  </div>
+
+  <!-- STATS -->
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
+    <div class="bg-slate-800 p-6 rounded-2xl shadow-xl">
+
+      <p class="text-slate-400 mb-2">
+        Total Orders
+      </p>
+
+      <h2 class="text-4xl font-bold">
+        {{ orders.length }}
+      </h2>
+
+    </div>
+
+    <div class="bg-slate-800 p-6 rounded-2xl shadow-xl">
+
+      <p class="text-slate-400 mb-2">
+        Kafka Status
+      </p>
+
+      <h2 class="text-2xl font-bold text-green-400">
+        Connected
+      </h2>
+
+    </div>
+
+    <div class="bg-slate-800 p-6 rounded-2xl shadow-xl">
+
+      <p class="text-slate-400 mb-2">
+        Realtime Feed
+      </p>
+
+      <h2 class="text-2xl font-bold text-cyan-400">
+        Active
+      </h2>
+
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+
+  <div class="bg-slate-800 rounded-2xl shadow-2xl overflow-hidden">
+
+    <div class="p-6 border-b border-slate-700">
+
+      <h2 class="text-2xl font-bold">
+        Orders Stream
+      </h2>
+
+    </div>
+
+    <table class="w-full">
+
+      <thead class="bg-slate-700">
+
+      <tr>
+
+        <th class="p-4 text-left">ID</th>
+        <th class="p-4 text-left">Product</th>
+        <th class="p-4 text-left">Qty</th>
+        <th class="p-4 text-left">Customer</th>
+        <th class="p-4 text-left">Status</th>
+        <th class="p-4 text-left">Created</th>
+
+      </tr>
+
+      </thead>
+
+      <tbody>
+
+      <tr
+        *ngFor="let order of orders"
+        class="border-t border-slate-700 hover:bg-slate-700/40 transition"
+      >
+
+        <td class="p-4 font-bold">
+          #{{ order.orderId }}
+        </td>
+
+        <td class="p-4">
+          {{ order.productId }}
+        </td>
+
+        <td class="p-4">
+          {{ order.quantity }}
+        </td>
+
+        <td class="p-4">
+          {{ order.customerName }}
+        </td>
+
+        <td class="p-4">
+
+            <span
+              [class.bg-blue-500]="order.status === 'CREATED'"
+              [class.bg-yellow-400]="order.status === 'RESERVED'"
+              [class.bg-green-500]="order.status === 'PAID'"
+              class="text-black px-3 py-1 rounded-xl font-bold"
+            >
+              {{ order.status }}
+            </span>
+
+        </td>
+
+       <td class="p-4 text-slate-400">
+
+          LIVE EVENT
+
+        </td>
+
+      </tr>
+
+      <tr *ngIf="orders.length === 0">
+
+        <td
+          colspan="6"
+          class="p-10 text-center text-slate-400"
+        >
+
+          Waiting for realtime orders...
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
